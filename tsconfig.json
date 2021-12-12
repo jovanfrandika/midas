@@ -26,7 +26,9 @@
       "@navigations": ["./src/navigations"],
       "@navigations/*": ["./src/navigations/*"],
       "@screens": ["./src/screens"],
-      "@screens/*": ["./src/screens/*"]
+      "@screens/*": ["./src/screens/*"],
+      "@utils": ["./src/utils"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "exclude": [

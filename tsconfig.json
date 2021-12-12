@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "rootDir": ".",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react-native",
+    "strict": true,
+    "typeRoots": ["node_modules/@types", "src/types"],
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+      "@navigations": ["./src/navigations"],
+      "@navigations/*": ["./src/navigations/*"],
+      "@screens": ["./src/screens"],
+      "@screens/*": ["./src/screens/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js"
+  ]
+}

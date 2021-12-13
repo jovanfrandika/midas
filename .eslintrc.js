@@ -53,6 +53,7 @@ module.exports = {
     'no-undef': 'off',
     'no-unused-vars': 'off',
     'no-case-declarations': 'off',
+    'consistent-return': 'off',
   },
   settings: {
     'import/parsers': {

@@ -1,20 +1,14 @@
-import React, {
-  useCallback, useMemo, useReducer, useState,
-} from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  View,
-  PermissionsAndroid,
-} from 'react-native';
+import React, { useMemo, useReducer, useState } from 'react';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { BleManager, Device } from 'react-native-ble-plx';
+import { BleManager } from 'react-native-ble-plx';
 import Config from 'react-native-config';
 
 import { Button, DeviceCard, Typography } from '@components';
 
-import routes from '@constants/routes';
+import requestBlePermission from '@utils/requestBlePermission';
+
+import reducer from './reducer';
 
 import styles from './styles';
 
@@ -26,60 +20,12 @@ export const nextButtonTestId = 'nextButtonTestId';
 
 const manager = new BleManager();
 
-const reducer = (
-  state: Device[],
-  action: { type: 'ADD_DEVICE'; payload: Device } | { type: 'CLEAR' },
-): Device[] => {
-  switch (action.type) {
-    case 'ADD_DEVICE':
-      const device = action.payload;
-
-      // check if the detected device is not already added to the list
-      if (device && !state.find((dev) => dev.id === device.id)) {
-        return [...state, device];
-      }
-      return state;
-    case 'CLEAR':
-      return [];
-    default:
-      return state;
-  }
-};
-
-const requestLocationPermission = async () => {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: 'Location permission for bluetooth scanning',
-        message: 'wahtever',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
-
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('Location permission for bluetooth scanning granted');
-      return true;
-    }
-    console.log('Location permission for bluetooth scanning revoked');
-    return false;
-  } catch (err) {
-    console.warn(err);
-    return false;
-  }
-};
-
 const Home = () => {
-  const navigation = useNavigation<HomeScreenProp>();
-
   const [scannedDevices, dispatch] = useReducer(reducer, []);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleScanDevices = async () => {
-    // display the Activityindicator
-    await requestLocationPermission();
+    await requestBlePermission();
 
     setIsLoading(true);
 
@@ -102,7 +48,7 @@ const Home = () => {
 
   const ListHeaderComponent = useMemo(
     () => (
-      <View style={styles.body}>
+      <View>
         <Button onPress={handleScanDevices} testID={nextButtonTestId}>
           {nextButtonLabel}
         </Button>
@@ -110,7 +56,7 @@ const Home = () => {
           {clearButtonLabel}
         </Button>
         {isLoading && (
-          <View style={styles.activityIndicatorContainer}>
+          <View>
             <ActivityIndicator color="teal" size={25} />
           </View>
         )}
@@ -118,10 +64,6 @@ const Home = () => {
     ),
     [isLoading],
   );
-
-  const handlePressNext = useCallback(() => {
-    navigation.navigate(routes.detail);
-  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -131,7 +73,6 @@ const Home = () => {
         data={scannedDevices}
         renderItem={({ item }) => <DeviceCard device={item} />}
         ListHeaderComponent={ListHeaderComponent}
-        contentContainerStyle={styles.content}
       />
     </SafeAreaView>
   );

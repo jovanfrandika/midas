@@ -7,5 +7,11 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  action: {},
+  actions: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  marginRight: {
+    marginRight: 10,
+  },
 });

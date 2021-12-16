@@ -13,10 +13,10 @@ import reducer from './reducer';
 import styles from './styles';
 
 export const exampleText = 'This is an example';
-export const nextButtonLabel = 'Go to Next Screen';
+export const scanButtonLabel = 'Scan';
 export const clearButtonLabel = 'Clear';
 
-export const nextButtonTestId = 'nextButtonTestId';
+export const scanButtonTestId = 'scanButtonTestId';
 
 const manager = new BleManager();
 
@@ -49,12 +49,19 @@ const Home = () => {
   const ListHeaderComponent = useMemo(
     () => (
       <View>
-        <Button onPress={handleScanDevices} testID={nextButtonTestId}>
-          {nextButtonLabel}
-        </Button>
-        <Button onPress={() => dispatch({ type: 'CLEAR' })}>
-          {clearButtonLabel}
-        </Button>
+        <View style={styles.actions}>
+          <Button
+            color="blue"
+            customStyles={styles.marginRight}
+            onPress={handleScanDevices}
+            testID={scanButtonTestId}
+          >
+            {scanButtonLabel}
+          </Button>
+          <Button color="red" onPress={() => dispatch({ type: 'CLEAR' })}>
+            {clearButtonLabel}
+          </Button>
+        </View>
         {isLoading && (
           <View>
             <ActivityIndicator color="teal" size={25} />

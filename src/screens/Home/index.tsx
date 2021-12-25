@@ -63,7 +63,7 @@ const Home = () => {
           </Button>
         </View>
         {isLoading && (
-          <View>
+          <View style={styles.loading}>
             <ActivityIndicator color="teal" size={25} />
           </View>
         )}
@@ -74,6 +74,12 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Typography weight="bold" customStyles={styles.title}>
+        Signed Glove Decoder
+      </Typography>
+      <Typography weight="bold" customStyles={styles.subtitle}>
+        by Kelompok 1
+      </Typography>
       <FlatList
         keyExtractor={(item) => item.id}
         data={scannedDevices}

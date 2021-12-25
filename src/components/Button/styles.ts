@@ -7,7 +7,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'salmon',
-    borderRadius: 20,
+    borderRadius: 16,
+    borderWidth: 2,
+
+    marginBottom: 12,
+    shadowColor: 'rgba(60,64,67,0.3)',
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 4,
   },
   text: {
     fontSize: 14,

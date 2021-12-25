@@ -1,6 +1,8 @@
 type StackNavigationProp<S, T> =
   import('@react-navigation/stack').StackNavigationProp<S, T>;
 
+type RouteProp<S, T> = import('@react-navigation/native').RouteProp<S, T>;
+
 type RootStackParamList = {
   Home: undefined;
   Detail: { deviceId: string };
@@ -8,6 +10,8 @@ type RootStackParamList = {
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 type DetailScreenProp = StackNavigationProp<RootStackParamList, 'Detail'>;
+
+type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
 type StyleProp<T> = import('react-native').StyleProp<T>;
 type TextStyle = import('react-native').TextStyle;

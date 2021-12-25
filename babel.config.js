@@ -19,6 +19,7 @@ module.exports = {
           '@assets': './assets',
           '@components': './src/components',
           '@constants': './src/constants',
+          '@contexts': './src/contexts',
           '@navigations': './src/navigations',
           '@screens': './src/screens',
           '@utils': './src/utils',

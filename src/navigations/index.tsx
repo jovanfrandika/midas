@@ -9,11 +9,15 @@ import routes from '@constants/routes';
 
 const Stack = createStackNavigator();
 
+const options = {
+  headerShown: false,
+};
+
 const Navigation = () => (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name={routes.home} component={Home} />
-      <Stack.Screen name={routes.detail} component={Detail} />
+      <Stack.Screen name={routes.home} component={Home} options={options} />
+      <Stack.Screen name={routes.detail} component={Detail} options={options} />
     </Stack.Navigator>
   </NavigationContainer>
 );

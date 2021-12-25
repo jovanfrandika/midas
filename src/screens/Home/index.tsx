@@ -1,10 +1,12 @@
-import React, { useMemo, useReducer, useState } from 'react';
+import React, {
+  useContext, useMemo, useReducer, useState,
+} from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { BleManager } from 'react-native-ble-plx';
 import Config from 'react-native-config';
 
 import { Button, DeviceCard, Typography } from '@components';
+import BleContext from '@contexts';
 
 import requestBlePermission from '@utils/requestBlePermission';
 
@@ -18,9 +20,8 @@ export const clearButtonLabel = 'Clear';
 
 export const scanButtonTestId = 'scanButtonTestId';
 
-const manager = new BleManager();
-
 const Home = () => {
+  const { manager } = useContext(BleContext);
   const [scannedDevices, dispatch] = useReducer(reducer, []);
   const [isLoading, setIsLoading] = useState(false);
 

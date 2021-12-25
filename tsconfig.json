@@ -23,6 +23,8 @@
       "@components/*": ["./src/components/*"],
       "@constants": ["./src/constants"],
       "@constants/*": ["./src/constants/*"],
+      "@contexts": ["./src/contexts"],
+      "@contexts/*": ["./src/contexts/*"],
       "@navigations": ["./src/navigations"],
       "@navigations/*": ["./src/navigations/*"],
       "@screens": ["./src/screens"],

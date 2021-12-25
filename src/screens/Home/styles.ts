@@ -7,6 +7,13 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  content: {
+    width: '100%',
+  },
+  contentContainer: {},
+  header: {
+    flex: 1,
+  },
   actions: {
     flexDirection: 'row',
     marginBottom: 10,

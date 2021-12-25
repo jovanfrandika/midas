@@ -8,7 +8,6 @@ const reducer = (
     case 'ADD_DEVICE':
       const device = action.payload;
 
-      // check if the detected device is not already added to the list
       if (device && !state.find((dev) => dev.id === device.id)) {
         return [...state, device];
       }

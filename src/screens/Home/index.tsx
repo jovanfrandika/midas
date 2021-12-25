@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Config from 'react-native-config';
 
 import { Button, DeviceCard, Typography } from '@components';
 import BleContext from '@contexts';
@@ -49,7 +48,7 @@ const Home = () => {
 
   const ListHeaderComponent = useMemo(
     () => (
-      <View>
+      <View style={styles.header}>
         <View style={styles.actions}>
           <Button
             color="blue"
@@ -75,12 +74,13 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Typography>{Config.APP_TITLE}</Typography>
       <FlatList
         keyExtractor={(item) => item.id}
         data={scannedDevices}
         renderItem={({ item }) => <DeviceCard device={item} />}
         ListHeaderComponent={ListHeaderComponent}
+        style={styles.content}
+        contentContainerStyle={styles.contentContainer}
       />
     </SafeAreaView>
   );

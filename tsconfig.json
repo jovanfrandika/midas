@@ -12,6 +12,7 @@
     "strict": true,
     "typeRoots": ["node_modules/@types", "src/types"],
     "baseUrl": ".",
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -33,9 +34,20 @@
       "@utils/*": ["./src/utils/*"]
     }
   },
+  "filesGlob": [
+    "node_modules/typescript/lib/lib.es6.d.ts"
+  ],
+  "types": [
+    "react",
+    "react-dom",
+    "react-native",
+    "react-test-renderer",
+    "jest"
+  ],
   "exclude": [
     "node_modules",
     "babel.config.js",
-    "metro.config.js"
+    "metro.config.js",
+    "e2e"
   ]
 }

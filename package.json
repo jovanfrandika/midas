@@ -11,6 +11,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "lint --fix",
     "prepare": "husky install",
+    "clean": "rimraf build",
+    "tsc": "tsc",
+    "build": "yarn run clean && yarn run tsc --",
     "test:unit": "NODE_ENV=test jest",
     "test:e2e:debug:android": "detox test --configuration android.emu.debug",
     "test:e2e:release:android": "detox test --configuration android.emu.release",
@@ -26,6 +29,8 @@
     "@react-navigation/stack": "^6.0.11",
     "react": "17.0.2",
     "react-native": "0.66.3",
+    "react-native-base64": "^0.2.1",
+    "react-native-ble-plx": "^2.0.3",
     "react-native-config": "^1.4.5",
     "react-native-gesture-handler": "^2.0.0",
     "react-native-safe-area-context": "^3.3.2",
@@ -38,6 +43,7 @@
     "@testing-library/react-native": "^9.0.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.66.4",
+    "@types/react-native-base64": "^0.2.0",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
@@ -80,8 +86,9 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --cache --fix"
+      "yarn prettier",
+      "eslint --cache --fix",
+      "git add"
     ]
   }
 }

@@ -7,5 +7,14 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  topSection: {
+    alignItems: 'center',
+  },
+  name: {
+    fontSize: 24,
+  },
   action: {},
+  value: {
+    fontSize: 72,
+  },
 });

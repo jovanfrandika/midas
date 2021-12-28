@@ -1,33 +1,93 @@
-import React, { useCallback } from 'react';
+import React, {
+  useContext, useMemo, useReducer, useState,
+} from 'react';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import Config from 'react-native-config';
 
-import { Button, Typography } from '@components';
+import { Button, DeviceCard, Typography } from '@components';
+import BleContext from '@contexts';
 
-import routes from '@constants/routes';
+import requestBlePermission from '@utils/requestBlePermission';
+
+import reducer from './reducer';
 
 import styles from './styles';
 
 export const exampleText = 'This is an example';
-export const nextButtonLabel = 'Go to Next Screen';
+export const scanButtonLabel = 'Scan';
+export const clearButtonLabel = 'Clear';
 
-export const nextButtonTestId = 'nextButtonTestId';
+export const scanButtonTestId = 'scanButtonTestId';
 
 const Home = () => {
-  const navigation = useNavigation<HomeScreenProp>();
+  const { manager } = useContext(BleContext);
+  const [scannedDevices, dispatch] = useReducer(reducer, []);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handlePressNext = useCallback(() => {
-    navigation.navigate(routes.detail);
-  }, []);
+  const handleScanDevices = async () => {
+    await requestBlePermission();
+
+    setIsLoading(true);
+
+    // scan devices
+    manager.startDeviceScan(null, null, (error, scannedDevice) => {
+      if (error) {
+        console.warn(error);
+      }
+
+      if (scannedDevice) {
+        dispatch({ type: 'ADD_DEVICE', payload: scannedDevice });
+      }
+    });
+
+    setTimeout(() => {
+      manager.stopDeviceScan();
+      setIsLoading(false);
+    }, 5000);
+  };
+
+  const ListHeaderComponent = useMemo(
+    () => (
+      <View style={styles.header}>
+        <View style={styles.actions}>
+          <Button
+            color="blue"
+            customStyles={styles.marginRight}
+            onPress={handleScanDevices}
+            testID={scanButtonTestId}
+          >
+            {scanButtonLabel}
+          </Button>
+          <Button color="red" onPress={() => dispatch({ type: 'CLEAR' })}>
+            {clearButtonLabel}
+          </Button>
+        </View>
+        {isLoading && (
+          <View style={styles.loading}>
+            <ActivityIndicator color="teal" size={25} />
+          </View>
+        )}
+      </View>
+    ),
+    [isLoading],
+  );
 
   return (
     <SafeAreaView style={styles.container}>
-      <Typography>{Config.APP_TITLE}</Typography>
-      <Typography>{exampleText}</Typography>
-      <Button onPress={handlePressNext} testID={nextButtonTestId}>
-        {nextButtonLabel}
-      </Button>
+      <Typography weight="bold" customStyles={styles.title}>
+        Signed Glove Decoder
+      </Typography>
+      <Typography weight="bold" customStyles={styles.subtitle}>
+        by Kelompok 1
+      </Typography>
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={scannedDevices}
+        renderItem={({ item }) => <DeviceCard device={item} />}
+        ListHeaderComponent={ListHeaderComponent}
+        style={styles.content}
+        contentContainerStyle={styles.contentContainer}
+      />
     </SafeAreaView>
   );
 };

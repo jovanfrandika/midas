@@ -54,6 +54,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-case-declarations': 'off',
     'consistent-return': 'off',
+    'no-promise-executor-return': 'off',
   },
   settings: {
     'import/parsers': {

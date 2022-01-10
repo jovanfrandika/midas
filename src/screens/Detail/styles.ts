@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { height } = Dimensions.get('screen');
 
 export default StyleSheet.create({
   container: {
@@ -16,5 +18,14 @@ export default StyleSheet.create({
   action: {},
   value: {
     fontSize: 72,
+  },
+  flatListContainer: {
+  },
+  flatList: {
+    marginVertical: 20,
+    height: 0.5 * height,
+  },
+  marginLeft: {
+    marginLeft: 10,
   },
 });

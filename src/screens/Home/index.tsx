@@ -13,7 +13,6 @@ import reducer from './reducer';
 
 import styles from './styles';
 
-export const exampleText = 'This is an example';
 export const scanButtonLabel = 'Scan';
 export const clearButtonLabel = 'Clear';
 
